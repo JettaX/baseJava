@@ -24,7 +24,7 @@ public class MainArray {
                     resume.uuid = uuid;
                     arrayStorage.save(resume);
                 case "list":
-                    printAll();
+                    getAll();
                     break;
                 case "get":
                     try {
@@ -52,7 +52,7 @@ public class MainArray {
         }
     }
 
-    private static void printAll() {
+    private static void getAll() {
         if (arrayStorage.size() != 0) {
             System.out.println(Arrays.toString(arrayStorage.getAll()));
         } else {
