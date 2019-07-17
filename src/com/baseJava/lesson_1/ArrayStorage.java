@@ -3,24 +3,31 @@ package com.baseJava.lesson_1;
 import java.util.Arrays;
 
 public class ArrayStorage {
-    private String[] storage = new String[10000];
+    private Resume[] storage = new Resume[10000];
     private int size;
 
-    public void save(String resume) {
+    public void save(Resume resume) {
         storage[size] = resume;
         size++;
     }
 
-    public String get(int index) {
-        rangeCheck(index);
-        return storage[index];
+    public Resume get(String uuid) {
+        for (int i = 0; i <= size; i++) {
+            if (uuid.equals(storage[i].toString())) {
+                return storage[i];
+            }
+        }
+        return null;
     }
 
-    public void delete(int index) {
-        rangeCheck(index);
-        storage[index] = null;
-        for (; index <= size; index++) {
-            storage[index] = storage[index + 1];
+    public void delete(String uuid) {
+        for (int i = 0; i <= size; i++) {
+            if (uuid.equals(storage[i].toString())) {
+                storage[i] = null;
+                for (; i < size; i++) {
+                    storage[i] = storage[i + 1];
+                }
+            }
         }
         size--;
     }
@@ -36,13 +43,7 @@ public class ArrayStorage {
         size = 0;
     }
 
-    public String[] getAll() {
+    public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
-    }
-
-    private void rangeCheck(int index) {
-        if (index > size) {
-            throw new IndexOutOfBoundsException("Такого резюме нет.");
-        }
     }
 }
