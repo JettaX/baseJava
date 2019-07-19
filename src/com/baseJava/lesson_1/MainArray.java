@@ -13,21 +13,30 @@ public class MainArray {
         String uuid;
 
         while (true) {
-            System.out.println("Введите одну из команд - | save | get | list | delete | clear | size | exit |");
+            System.out.println("Введите одну из команд - | save | update | get | list | delete | clear | size | exit |");
             init = scanner.next().toLowerCase();
-            uuid = resume.uuid;
+            uuid = resume.getUuid();
             switch (init) {
                 case "save":
                     System.out.println("Введите uuid");
                     uuid = scanner.next();
                     resume = new Resume();
-                    resume.uuid = uuid;
+                    resume.setUuid(uuid);
                     arrayStorage.save(resume);
                 case "list":
                     getAll();
                     break;
+                case "update":
+                    System.out.println("Введите новый uuid");
+                    uuid = scanner.next();
+                    resume.setUuid(uuid);
+                    arrayStorage.update(resume);
+                    break;
                 case "get":
                     try {
+                        System.out.println("Введите uuid");
+                        uuid = scanner.next();
+                        resume.setUuid(uuid);
                         System.out.println(arrayStorage.get(uuid));
                     } catch (NullPointerException e) {
                         System.out.println("Empty");

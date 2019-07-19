@@ -7,11 +7,22 @@ public class ArrayStorage {
     private int size;
 
     public void save(Resume resume) {
+        if (!isStorageFull() || isThereResume(resume)) return;
         storage[size] = resume;
         size++;
     }
 
+    public void update(Resume resume) {
+        if (!isThereResume(resume)) return;
+        for (int i = 0; i < size; i++) {
+            if (resume.toString().equals(storage[i].toString())) {
+                storage[i] = resume;
+            }
+        }
+    }
+
     public Resume get(String uuid) {
+        if (!isThereResume(uuid)) return null;
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].toString())) {
                 return storage[i];
@@ -21,6 +32,7 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
+        if (!isThereResume(uuid)) return;
         for (int i = 0; i <= size; i++) {
             if (uuid.equals(storage[i].toString())) {
                 size--;
@@ -44,5 +56,24 @@ public class ArrayStorage {
 
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
+    }
+
+    private boolean isStorageFull() {
+        if ((storage.length) == size) {
+            System.out.println("Нельзя создать резюме так как закончилась память.");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean isThereResume(Object resume) {
+        for (int i = 0; i < size; i++) {
+            if (resume.toString().equals(storage[i].toString())) {
+                return true;
+            }
+        }
+        System.out.println("uuid не найден");
+        return false;
     }
 }
