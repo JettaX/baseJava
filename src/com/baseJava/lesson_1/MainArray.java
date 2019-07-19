@@ -36,7 +36,6 @@ public class MainArray {
                     try {
                         System.out.println("Введите uuid");
                         uuid = scanner.next();
-                        resume.setUuid(uuid);
                         System.out.println(arrayStorage.get(uuid));
                     } catch (NullPointerException e) {
                         System.out.println("Empty");
