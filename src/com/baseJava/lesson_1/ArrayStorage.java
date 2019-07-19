@@ -7,13 +7,13 @@ public class ArrayStorage {
     private int size;
 
     public void save(Resume resume) {
-        if (!isStorageFull() || isThereResume(resume)) return;
+        if (!isStorageFull() || isInStorage(resume)) return;
         storage[size] = resume;
         size++;
     }
 
     public void update(Resume resume) {
-        if (!isThereResume(resume)) return;
+        if (!isInStorage(resume)) return;
         for (int i = 0; i < size; i++) {
             if (resume.toString().equals(storage[i].toString())) {
                 storage[i] = resume;
@@ -22,7 +22,7 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        if (!isThereResume(uuid)) return null;
+        if (!isInStorage(uuid)) return null;
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].toString())) {
                 return storage[i];
@@ -32,7 +32,7 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        if (!isThereResume(uuid)) return;
+        if (!isInStorage(uuid)) return;
         for (int i = 0; i <= size; i++) {
             if (uuid.equals(storage[i].toString())) {
                 size--;
@@ -67,7 +67,7 @@ public class ArrayStorage {
         }
     }
 
-    private boolean isThereResume(Object resume) {
+    private boolean isInStorage(Object resume) {
         for (int i = 0; i < size; i++) {
             if (resume.toString().equals(storage[i].toString())) {
                 return true;
