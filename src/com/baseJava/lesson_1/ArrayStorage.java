@@ -3,7 +3,7 @@ package com.baseJava.lesson_1;
 import java.util.Arrays;
 
 public class ArrayStorage {
-    private Resume[] storage = new Resume[2];
+    private Resume[] storage = new Resume[10_000];
     private int size;
 
     public void save(Resume resume) {
