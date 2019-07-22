@@ -17,8 +17,7 @@ public class ArrayStorage {
             return;
         }
 
-        storage[size] = resume;
-        size++;
+        storage[size++] = resume;
     }
 
     public void update(Resume resume) {
@@ -45,6 +44,7 @@ public class ArrayStorage {
         int numMoved = size - indexResume - 1;
         if (indexResume < 0) {
             System.out.println("uuid not found");
+            return;
         } else if (numMoved > 0) {
             storage[indexResume] = storage[size - 1];
         }
