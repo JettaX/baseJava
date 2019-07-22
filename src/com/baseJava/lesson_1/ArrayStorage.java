@@ -12,7 +12,7 @@ public class ArrayStorage {
             return;
         }
 
-        if (checkResume(resume) != -1) {
+        if (checkResume(resume) >= 0) {
             System.out.println("uuid уж есть");
             return;
         }
@@ -24,7 +24,7 @@ public class ArrayStorage {
 
     public void update(Resume resume) {
         int i = checkResume(resume);
-        if (i == -1) {
+        if (i < 0) {
             System.out.println("uuid не найден");
         } else {
             storage[i] = resume;
@@ -33,7 +33,7 @@ public class ArrayStorage {
 
     public Resume get(String uuid) {
         int i = checkResume(uuid);
-        if (i == -1) {
+        if (i < 0) {
             System.out.println("uuid не найден");
             return null;
         } else {
@@ -43,7 +43,7 @@ public class ArrayStorage {
 
     public void delete(String uuid) {
         int i = checkResume(uuid);
-        if (i == -1) {
+        if (i < 0) {
             System.out.println("uuid не найден");
         } else {
             storage[i] = storage[size - 1];
