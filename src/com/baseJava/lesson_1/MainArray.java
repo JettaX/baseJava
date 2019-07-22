@@ -13,12 +13,11 @@ public class MainArray {
         String uuid;
 
         while (true) {
-            System.out.println("Введите одну из команд - | save | update | get | list | delete | clear | size | exit |");
+            System.out.println("Enter one of the commands - | save | update | get | list | delete | clear | size | exit |");
             init = scanner.next().toLowerCase();
-            uuid = resume.getUuid();
             switch (init) {
                 case "save":
-                    System.out.println("Введите uuid");
+                    System.out.println("Enter uuid");
                     uuid = scanner.next();
                     resume = new Resume();
                     resume.setUuid(uuid);
@@ -27,14 +26,14 @@ public class MainArray {
                     getAll();
                     break;
                 case "update":
-                    System.out.println("Введите новый uuid");
+                    System.out.println("Enter new uuid");
                     uuid = scanner.next();
                     resume.setUuid(uuid);
                     arrayStorage.update(resume);
                     break;
                 case "get":
                     try {
-                        System.out.println("Введите uuid");
+                        System.out.println("Enter uuid");
                         uuid = scanner.next();
                         System.out.println(arrayStorage.get(uuid));
                     } catch (NullPointerException e) {
@@ -42,7 +41,7 @@ public class MainArray {
                     }
                     break;
                 case "delete":
-                    System.out.println("Введите uuid");
+                    System.out.println("Enter uuid");
                     arrayStorage.delete(scanner.next());
                     break;
                 case "clear":
@@ -54,7 +53,7 @@ public class MainArray {
                 case "exit":
                     return;
                 default:
-                    System.out.println("Неверный ввод");
+                    System.out.println("Invalid input");
                     break;
             }
         }
