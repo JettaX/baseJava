@@ -12,7 +12,7 @@ public class ArrayStorage {
             return;
         }
 
-        if (findIndex(resume) >= 0) {
+        if (findIndex(resume.getUuid()) >= 0) {
             System.out.println("uuid exists");
             return;
         }
@@ -22,7 +22,7 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) {
-        int indexResume = findIndex(resume);
+        int indexResume = findIndex(resume.getUuid());
         if (indexResume < 0) {
             System.out.println("uuid not found");
         } else {
@@ -44,9 +44,12 @@ public class ArrayStorage {
         int indexResume = findIndex(uuid);
         if (indexResume < 0) {
             System.out.println("uuid not found");
+        } else if (storage.length == size) {
+            storage[indexResume] = null;
+            size--;
         } else {
             storage[indexResume] = storage[size - 1];
-            storage[size] = null;
+            storage[size - 1] = null;
             size--;
         }
     }
@@ -66,7 +69,7 @@ public class ArrayStorage {
         return Arrays.copyOf(storage, size);
     }
 
-    private int findIndex(Object uuid) {
+    private int findIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
                 return i;
