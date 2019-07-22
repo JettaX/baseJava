@@ -3,7 +3,7 @@ package com.baseJava.lesson_1;
 import java.util.Arrays;
 
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10_000];
+    private Resume[] storage = new Resume[2];
     private int size;
 
     public void save(Resume resume) {
@@ -42,9 +42,10 @@ public class ArrayStorage {
 
     public void delete(String uuid) {
         int indexResume = findIndex(uuid);
+        int numMoved = size - indexResume - 1;
         if (indexResume < 0) {
             System.out.println("uuid not found");
-        } else if (storage.length != size) {
+        } else if (numMoved > 0) {
             storage[indexResume] = storage[size - 1];
         }
         storage[--size] = null;
