@@ -3,43 +3,52 @@ package com.baseJava.lesson_1;
 import java.util.Arrays;
 
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10_000];
     private int size;
 
     public void save(Resume resume) {
-        if (!isStorageFull() || isInStorage(resume)) return;
+        if (storage.length == size) {
+            System.out.println("Нельзя создать резюме так как закончилась память.");
+            return;
+        }
+
+        if (checkResume(resume) != -1) {
+            System.out.println("uuid уж есть");
+            return;
+        }
+
         storage[size] = resume;
+        System.out.println("Сохранено");
         size++;
     }
 
     public void update(Resume resume) {
-        if (!isInStorage(resume)) return;
-        for (int i = 0; i < size; i++) {
-            if (resume.toString().equals(storage[i].toString())) {
-                storage[i] = resume;
-            }
+        int i = checkResume(resume);
+        if (i == -1) {
+            System.out.println("uuid не найден");
+        } else {
+            storage[i] = resume;
         }
     }
 
     public Resume get(String uuid) {
-        if (!isInStorage(uuid)) return null;
-        for (int i = 0; i < size; i++) {
-            if (uuid.equals(storage[i].toString())) {
-                return storage[i];
-            }
+        int i = checkResume(uuid);
+        if (i == -1) {
+            System.out.println("uuid не найден");
+            return null;
+        } else {
+            return storage[i];
         }
-        return null;
     }
 
     public void delete(String uuid) {
-        if (!isInStorage(uuid)) return;
-        for (int i = 0; i <= size; i++) {
-            if (uuid.equals(storage[i].toString())) {
-                size--;
-                for (; i < size; i++) {
-                    storage[i] = storage[i + 1];
-                }
-            }
+        int i = checkResume(uuid);
+        if (i == -1) {
+            System.out.println("uuid не найден");
+        } else {
+            storage[i] = storage[size - 1];
+            storage[size] = null;
+            size--;
         }
     }
 
@@ -58,22 +67,12 @@ public class ArrayStorage {
         return Arrays.copyOf(storage, size);
     }
 
-    private boolean isStorageFull() {
-        if ((storage.length) == size) {
-            System.out.println("Нельзя создать резюме так как закончилась память.");
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private boolean isInStorage(Object resume) {
+    private int checkResume(Object resume) {
         for (int i = 0; i < size; i++) {
-            if (resume.toString().equals(storage[i].toString())) {
-                return true;
+            if (resume.toString().equals(storage[i].getUuid())) {
+                return i;
             }
         }
-        System.out.println("uuid не найден");
-        return false;
+        return -1;
     }
 }
