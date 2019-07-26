@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class MainArray {
-    static private ArrayStorage arrayStorage = new ArrayStorage();
+    private static final ArrayStorage arrayStorage = new ArrayStorage();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
