@@ -4,10 +4,7 @@ import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public class ArrayStorage implements Storage{
-    private static final int STORAGE_LIMIT = 10000;
-    private Resume[] storage = new Resume[STORAGE_LIMIT];
-    private int size;
+public class ArrayStorage extends AbstractArrayStorage{
 
     public void save(Resume resume) {
         if (storage.length == size) {
@@ -32,15 +29,6 @@ public class ArrayStorage implements Storage{
         }
     }
 
-    public Resume get(String uuid) {
-        int indexResume = findIndex(uuid);
-        if (indexResume < 0) {
-            System.out.println("uuid not found");
-            return null;
-        } else {
-            return storage[indexResume];
-        }
-    }
 
     public void delete(String uuid) {
         int indexResume = findIndex(uuid);
@@ -54,10 +42,6 @@ public class ArrayStorage implements Storage{
         storage[--size] = null;
     }
 
-    public int size() {
-        return size;
-    }
-
     public void clear() {
         Arrays.fill(storage,0, size, null);
         size = 0;
@@ -67,7 +51,7 @@ public class ArrayStorage implements Storage{
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    private int findIndex(String uuid) {
+    protected int findIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
                 return i;

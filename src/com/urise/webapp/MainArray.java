@@ -2,12 +2,13 @@ package com.urise.webapp;
 
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.ArrayStorage;
+import com.urise.webapp.storage.Storage;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class MainArray {
-    private static final ArrayStorage arrayStorage = new ArrayStorage();
+    private static final Storage arrayStorage = new ArrayStorage();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
