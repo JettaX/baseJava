@@ -1,14 +1,14 @@
 package com.urise.webapp.model;
 
-public class Resume implements Comparable<Resume>{
+public class Resume implements Comparable<Resume> {
     private String uuid;
+
+    public Resume(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getUuid() {
         return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     @Override
@@ -33,6 +33,21 @@ public class Resume implements Comparable<Resume>{
 
     @Override
     public int compareTo(Resume o) {
-        return uuid.compareTo(o.uuid);
+        int result = this.uuid.compareTo(o.uuid);
+
+        if (result < 0) {
+            if (this.uuid.length() < o.uuid.length()) {
+                result = -1;
+            } else if (this.uuid.length() > o.uuid.length()) {
+                result = 1;
+            }
+        } else if (result > 0) {
+            if (this.uuid.length() > o.uuid.length()) {
+                result = 1;
+            } else if (this.uuid.length() < o.uuid.length()) {
+                result = -1;
+            }
+        }
+        return result;
     }
 }
