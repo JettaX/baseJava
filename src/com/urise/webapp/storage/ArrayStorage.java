@@ -10,24 +10,25 @@ public class ArrayStorage extends AbstractArrayStorage {
             return;
         }
 
-        if (findIndex(resume.getUuid()) >= 0) {
+        try {
+            doNotExistedId(resume.getUuid());
+            storage[size++] = resume;
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("uuid exists");
-            return;
         }
-
-        storage[size++] = resume;
     }
 
     public void delete(String uuid) {
-        int indexResume = findIndex(uuid);
-        int numMoved = size - indexResume - 1;
-        if (indexResume < 0) {
+        try {
+            int indexResume = doExistedId(uuid);
+            int numMoved = size - indexResume - 1;
+            if (numMoved > 0) {
+                storage[indexResume] = storage[size - 1];
+            }
+            storage[--size] = null;
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("uuid not found");
-            return;
-        } else if (numMoved > 0) {
-            storage[indexResume] = storage[size - 1];
         }
-        storage[--size] = null;
     }
 
     protected int findIndex(String uuid) {

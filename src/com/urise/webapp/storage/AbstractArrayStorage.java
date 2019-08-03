@@ -14,22 +14,16 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void update(Resume resume) {
-        int indexResume = findIndex(resume.getUuid());
-        if (indexResume < 0) {
-            System.out.println("uuid not found");
-        } else {
+        try {
+            int indexResume = doExistedId(resume.getUuid());
             storage[indexResume] = resume;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("uuid not found");
         }
     }
 
     public Resume get(String uuid) {
-        int indexResume = findIndex(uuid);
-        if (indexResume < 0) {
-            System.out.println("uuid not found");
-            return null;
-        } else {
-            return storage[indexResume];
-        }
+        return storage[doExistedId(uuid)];
     }
 
     public Resume[] getAll() {
@@ -37,8 +31,24 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void clear() {
-        Arrays.fill(storage,0, size, null);
+        Arrays.fill(storage, 0, size, null);
         size = 0;
+    }
+
+    protected int doExistedId(String uuid) {
+        int searchKey = findIndex(uuid);
+        if (searchKey <= 0) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        return searchKey;
+    }
+
+    protected int doNotExistedId(String uuid) {
+        int searchKey = findIndex(uuid);
+        if (searchKey >= 0) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        return searchKey;
     }
 
     protected abstract int findIndex(String uuid);
