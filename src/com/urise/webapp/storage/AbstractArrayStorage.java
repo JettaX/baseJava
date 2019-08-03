@@ -15,8 +15,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void update(Resume resume) {
         try {
-            int indexResume = doExistedId(resume.getUuid());
-            storage[indexResume] = resume;
+            storage[doExistedId(resume.getUuid())] = resume;
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("uuid not found");
         }
