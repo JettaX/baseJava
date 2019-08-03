@@ -23,7 +23,12 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public Resume get(String uuid) {
-        return storage[doExistedId(uuid)];
+        try {
+            return storage[doExistedId(uuid)];
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("uuid not found");
+            return null;
+        }
     }
 
     public Resume[] getAll() {
