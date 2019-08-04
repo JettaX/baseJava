@@ -11,11 +11,7 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void deleteElement(int indexElement) {
-        int numMoved = size - indexElement - 1;
-        if (numMoved > 0) {
-            storage[indexElement] = storage[size - 1];
-        }
-        storage[size] = null;
+        storage[indexElement] = storage[size - 1];
     }
 
     @Override
