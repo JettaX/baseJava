@@ -33,21 +33,6 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int compareTo(Resume o) {
-        int result = this.uuid.compareTo(o.uuid);
-
-        if (result < 0) {
-            if (this.uuid.length() < o.uuid.length()) {
-                result = -1;
-            } else if (this.uuid.length() > o.uuid.length()) {
-                result = 1;
-            }
-        } else if (result > 0) {
-            if (this.uuid.length() > o.uuid.length()) {
-                result = 1;
-            } else if (this.uuid.length() < o.uuid.length()) {
-                result = -1;
-            }
-        }
-        return result;
+        return this.uuid.compareTo(o.uuid);
     }
 }

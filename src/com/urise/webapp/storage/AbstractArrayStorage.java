@@ -5,33 +5,55 @@ import com.urise.webapp.model.Resume;
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage implements Storage {
-    protected static final int STORAGE_LIMIT = 100000;
+    protected static final int STORAGE_LIMIT = 10_000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size;
 
-    public int size() {
-        return size;
+    public void save(Resume resume) {
+        if (STORAGE_LIMIT == size) {
+            System.out.println("You can not create a resume as the memory is over");
+            return;
+        }
+
+        int key = findIndex(resume.getUuid());
+        if (key >= 0) {
+            System.out.println("uuid exists");
+            return;
+        }
+        insertElement(resume, key);
+        size++;
     }
 
     public void update(Resume resume) {
-        try {
-            storage[doExistedId(resume.getUuid())] = resume;
-        } catch (ArrayIndexOutOfBoundsException e) {
+        int index = findIndex(resume.getUuid());
+        if (index < 0) {
             System.out.println("uuid not found");
+            return;
         }
+        storage[index] = resume;
     }
 
     public Resume get(String uuid) {
-        try {
-            return storage[doExistedId(uuid)];
-        } catch (IndexOutOfBoundsException e) {
+        int index = findIndex(uuid);
+        if (index < 0) {
             System.out.println("uuid not found");
             return null;
         }
+        return storage[index];
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
+    public void delete(String uuid) {
+        int index = findIndex(uuid);
+        if (index < 0) {
+            System.out.println("uuid not found");
+            return;
+        }
+        deleteElement(index);
+        size--;
+    }
+
+    public int size() {
+        return size;
     }
 
     public void clear() {
@@ -39,21 +61,13 @@ public abstract class AbstractArrayStorage implements Storage {
         size = 0;
     }
 
-    protected int doExistedId(String uuid) {
-        int searchKey = findIndex(uuid);
-        if (searchKey <= 0) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
-        return searchKey;
-    }
-
-    protected int doNotExistedId(String uuid) {
-        int searchKey = findIndex(uuid);
-        if (searchKey >= 0) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
-        return searchKey;
+    public Resume[] getAll() {
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     protected abstract int findIndex(String uuid);
+
+    protected abstract void insertElement(Resume resume, int indexElement);
+
+    protected abstract void deleteElement(int indexElement);
 }
