@@ -1,6 +1,7 @@
 package com.urise.webapp;
 
 import com.urise.webapp.model.Resume;
+import com.urise.webapp.storage.ArrayStorage;
 import com.urise.webapp.storage.SortedArrayStorage;
 import com.urise.webapp.storage.Storage;
 
@@ -18,9 +19,9 @@ public class Test {
         ARRAY_STORAGE.save(r2);
         ARRAY_STORAGE.save(r3);
         System.out.println(Arrays.toString(ARRAY_STORAGE.getAll()));
-        ARRAY_STORAGE.delete("r3");
-        System.out.println(Arrays.toString(ARRAY_STORAGE.getAll()));
         ARRAY_STORAGE.delete("r1");
+        System.out.println(Arrays.toString(ARRAY_STORAGE.getAll()));
+        ARRAY_STORAGE.delete("r3");
         System.out.println(Arrays.toString(ARRAY_STORAGE.getAll()));
         ARRAY_STORAGE.delete("r2");
         System.out.println(Arrays.toString(ARRAY_STORAGE.getAll()));
