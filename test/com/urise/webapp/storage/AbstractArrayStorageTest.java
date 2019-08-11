@@ -2,6 +2,7 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exeption.ExistStorageExeption;
 import com.urise.webapp.exeption.NotExistStorageExeption;
+import com.urise.webapp.exeption.StorageExeption;
 import com.urise.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import static org.junit.Assert.*;
 
 public abstract class AbstractArrayStorageTest {
     private Storage storage;
+    private final int STORAGE_LIMIT = 3;
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
@@ -52,6 +54,18 @@ public abstract class AbstractArrayStorageTest {
         storage.delete(UUID_1);
         assertEquals(2, storage.size());
         assertEquals(new Resume(UUID_1), storage.get(UUID_1));
+    }
+
+    @Test(expected = StorageExeption.class)
+    public void deleteStackOverflow() {
+        try {
+            for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
+                storage.save(new Resume());
+            }
+        } catch (Exception e) {
+            fail();
+        }
+        storage.save(new Resume());
     }
 
     @Test(expected = NotExistStorageExeption.class)
