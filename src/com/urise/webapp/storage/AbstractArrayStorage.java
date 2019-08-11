@@ -1,5 +1,8 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exeption.ExistStorageExeption;
+import com.urise.webapp.exeption.NotExistStorageExeption;
+import com.urise.webapp.exeption.StorageExeption;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -12,14 +15,12 @@ public abstract class AbstractArrayStorage implements Storage {
     @Override
     public void save(Resume resume) {
         if (STORAGE_LIMIT == size) {
-            System.out.println("You can not create a resume as the memory is over");
-            return;
+            throw new StorageExeption("Storage overflow ", resume.getUuid());
         }
 
         int key = findIndex(resume.getUuid());
         if (key >= 0) {
-            System.out.println("uuid exists");
-            return;
+            throw new ExistStorageExeption(resume.getUuid());
         }
         insertElement(resume, key);
         size++;
@@ -29,32 +30,32 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (index < 0) {
-            System.out.println("uuid not found");
-            return;
+            throw new NotExistStorageExeption(resume.getUuid());
+        } else {
+            storage[index] = resume;
         }
-        storage[index] = resume;
     }
 
     @Override
     public Resume get(String uuid) {
         int index = findIndex(uuid);
         if (index < 0) {
-            System.out.println("uuid not found");
-            return null;
+            throw new NotExistStorageExeption(uuid);
+        } else {
+            return storage[index];
         }
-        return storage[index];
     }
 
     @Override
     public void delete(String uuid) {
         int index = findIndex(uuid);
         if (index < 0) {
-            System.out.println("uuid not found");
-            return;
+            throw new NotExistStorageExeption(uuid);
+        } else {
+            deleteElement(index);
+            storage[size - 1] = null;
+            size--;
         }
-        deleteElement(index);
-        storage[size - 1] = null;
-        size--;
     }
 
     @Override
