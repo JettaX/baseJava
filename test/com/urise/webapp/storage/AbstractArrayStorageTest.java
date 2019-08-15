@@ -19,7 +19,6 @@ public abstract class AbstractArrayStorageTest {
     private static final Resume RESUME_3 = new Resume(UUID_3);
     private static final String UUID_4 = "uuid4";
     private static final Resume RESUME_4 = new Resume(UUID_4);
-    private static final String UUID_5 = "uuid5";
 
     protected AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -53,7 +52,7 @@ public abstract class AbstractArrayStorageTest {
                 storage.save(new Resume());
             }
         } catch (StorageExeption e) {
-            fail("массив переполнен");
+            fail("the array is full");
         }
         storage.save(new Resume());
     }
@@ -67,9 +66,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = NotExistStorageExeption.class)
     public void updateNotExist() throws Exception {
-        Resume resume = new Resume(UUID_5);
-        storage.update(resume);
-        assertSame(resume, storage.get(UUID_5));
+        storage.update(RESUME_4);
     }
 
     @Test(expected = NotExistStorageExeption.class)
@@ -111,9 +108,7 @@ public abstract class AbstractArrayStorageTest {
     public void getAll() {
         Resume[] resumes = storage.getAll();
         assertEquals(3, resumes.length);
-        assertSame(RESUME_1, resumes[0]);
-        assertSame(RESUME_2, resumes[1]);
-        assertSame(RESUME_3, resumes[2]);
+        assertArrayEquals(storage.getAll(), resumes);
     }
 
     private void assertGet(Resume resume) throws Exception {
