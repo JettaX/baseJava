@@ -1,61 +1,40 @@
 package com.urise.webapp.storage;
 
-import com.urise.webapp.exeption.ExistStorageExeption;
-import com.urise.webapp.exeption.NotExistStorageExeption;
 import com.urise.webapp.exeption.StorageExeption;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public abstract class AbstractArrayStorage implements Storage {
+public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10_000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size;
 
     @Override
-    public void save(Resume resume) {
+    protected void doSave(Resume resume, Object searchKey) {
         if (STORAGE_LIMIT == size) {
             throw new StorageExeption("Storage overflow ", resume.getUuid());
-        }
-
-        int key = findIndex(resume.getUuid());
-        if (key >= 0) {
-            throw new ExistStorageExeption(resume.getUuid());
-        }
-        insertElement(resume, key);
-        size++;
-    }
-
-    @Override
-    public void update(Resume resume) {
-        int index = findIndex(resume.getUuid());
-        if (index < 0) {
-            throw new NotExistStorageExeption(resume.getUuid());
         } else {
-            storage[index] = resume;
+            insertElement(resume, (Integer) searchKey);
+            size++;
         }
     }
 
     @Override
-    public Resume get(String uuid) {
-        int index = findIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageExeption(uuid);
-        } else {
-            return storage[index];
-        }
+    protected void doUpdate(Resume resume, Object searchKey) {
+        storage[(int) searchKey] = resume;
     }
 
     @Override
-    public void delete(String uuid) {
-        int index = findIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageExeption(uuid);
-        } else {
-            deleteElement(index);
-            storage[size - 1] = null;
-            size--;
-        }
+    protected Resume doGet(Object index) {
+        return storage[(int) index];
+    }
+
+    @Override
+    protected void doDelete(Object index) {
+        deleteElement((Integer) index);
+        storage[size - 1] = null;
+        size--;
     }
 
     @Override
@@ -74,7 +53,7 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    protected abstract int findIndex(String uuid);
+    protected abstract Object findIndex(String uuid);
 
     protected abstract void insertElement(Resume resume, int indexElement);
 

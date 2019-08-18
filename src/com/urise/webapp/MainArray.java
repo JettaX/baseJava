@@ -1,14 +1,14 @@
 package com.urise.webapp;
 
 import com.urise.webapp.model.Resume;
-import com.urise.webapp.storage.SortedArrayStorage;
+import com.urise.webapp.storage.ListStorage;
 import com.urise.webapp.storage.Storage;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class MainArray {
-    private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
+    private static final Storage ARRAY_STORAGE = new ListStorage();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
