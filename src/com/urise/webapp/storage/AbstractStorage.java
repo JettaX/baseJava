@@ -19,10 +19,14 @@ public abstract class AbstractStorage implements Storage {
     @Override
     public void save(Resume resume) {
         Object searchKey = findIndex(resume.getUuid());
-        if ((int) searchKey >= 0) {
+        try {
+            if ((int) searchKey >= 0) {
+                throw new ExistStorageExeption(resume.getUuid());
+            } else {
+                doSave(resume, searchKey);
+            }
+        } catch (ClassCastException e) {
             throw new ExistStorageExeption(resume.getUuid());
-        } else {
-            doSave(resume, searchKey);
         }
     }
 
@@ -43,9 +47,13 @@ public abstract class AbstractStorage implements Storage {
 
     private Object getExistedIndex(String uuid) {
         Object searchKey = findIndex(uuid);
-        if ((int) searchKey < 0) {
-            throw new NotExistStorageExeption(uuid);
-        } else {
+        try {
+            if ((int) searchKey < 0) {
+                throw new NotExistStorageExeption(uuid);
+            } else {
+                return searchKey;
+            }
+        } catch (ClassCastException e) {
             return searchKey;
         }
     }
