@@ -35,7 +35,7 @@ public class MapStorage extends AbstractStorage {
                 return pair.getKey();
             }
         }
-        return -1;
+        return null;
     }
 
     @Override
@@ -51,5 +51,10 @@ public class MapStorage extends AbstractStorage {
     @Override
     public Resume[] getAll() {
         return storage.values().toArray(new Resume[0]);
+    }
+
+    @Override
+    protected boolean isExist(Object index) {
+        return index != null;
     }
 }
