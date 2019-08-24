@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
-    Map<String, Resume> storage = new HashMap<>();
+    private Map<String, Resume> storage = new HashMap<>();
 
     @Override
     protected void doSave(Resume resume, Object searchKey) {
@@ -30,12 +30,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Object findIndex(String uuid) {
-        for (Map.Entry<String, Resume> pair : storage.entrySet()) {
-            if (pair.getKey().equals(uuid)) {
-                return pair.getKey();
-            }
-        }
-        return null;
+        return uuid;
     }
 
     @Override
@@ -55,6 +50,6 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object index) {
-        return index != null;
+        return storage.containsKey(index);
     }
 }

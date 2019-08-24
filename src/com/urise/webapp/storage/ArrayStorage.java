@@ -23,9 +23,4 @@ public class ArrayStorage extends AbstractArrayStorage {
         }
         return -1;
     }
-
-    @Override
-    protected boolean isExist(Object index) {
-        return (int) index > -1;
-    }
 }
