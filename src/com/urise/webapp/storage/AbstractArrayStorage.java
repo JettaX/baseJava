@@ -53,6 +53,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
+    protected boolean isExist(Object index) {
+        return (int) index > -1;
+    }
+
     protected abstract Object findIndex(String uuid);
 
     protected abstract void insertElement(Resume resume, int searchKey);

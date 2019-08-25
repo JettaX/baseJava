@@ -52,4 +52,8 @@ public class ListStorage extends AbstractStorage {
         }
         return -1;
     }
+
+    protected boolean isExist(Object index) {
+        return (int) index > -1;
+    }
 }

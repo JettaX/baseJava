@@ -16,6 +16,8 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Object findIndex(String uuid);
 
+    protected abstract boolean isExist(Object index);
+
     @Override
     public void save(Resume resume) {
         Object searchKey = findIndex(resume.getUuid());
@@ -48,9 +50,5 @@ public abstract class AbstractStorage implements Storage {
         } else {
             return searchKey;
         }
-    }
-
-    protected boolean isExist(Object index) {
-        return (int) index > -1;
     }
 }
