@@ -3,29 +3,36 @@ package com.urise.webapp.storage;
 import com.urise.webapp.model.Resume;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class ListStorage extends AbstractStorage {
-    private final List<Resume> storage = new ArrayList<>();
+public class MapUuidStorage extends AbstractStorage {
+    private Map<String, Resume> storage = new HashMap<>();
 
     @Override
     protected void doSave(Resume resume, Object searchKey) {
-        storage.add(resume);
+        storage.put((String) searchKey, resume);
     }
 
     @Override
     protected void doUpdate(Resume resume, Object searchKey) {
-        storage.set((Integer) searchKey, resume);
+        storage.replace((String) searchKey, resume);
     }
 
     @Override
     protected Resume doGet(Object searchKey) {
-        return storage.get((Integer) searchKey);
+        return storage.get(searchKey);
     }
 
     @Override
     protected void doDelete(Object searchKey) {
-        storage.remove(((Integer) searchKey).intValue());
+        storage.remove(searchKey);
+    }
+
+    @Override
+    protected Object findIndex(String uuid) {
+        return uuid;
     }
 
     @Override
@@ -40,20 +47,11 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public List<Resume> getAllSorted() {
-        return new ArrayList<>(storage);
+        return new ArrayList<>(storage.values());
     }
 
     @Override
-    protected Object findIndex(String uuid) {
-        for (int i = 0; i < storage.size(); i++) {
-            if (storage.get(i).getUuid().equals(uuid)){
-                return i;
-            }
-        }
-        return -1;
-    }
-
     protected boolean isExist(Object index) {
-        return (int) index > -1;
+        return storage.containsKey(index);
     }
 }

@@ -1,14 +1,12 @@
 package com.urise.webapp;
 
 import com.urise.webapp.model.Resume;
-import com.urise.webapp.storage.MapStorage;
+import com.urise.webapp.storage.MapResumeStorage;
 import com.urise.webapp.storage.Storage;
-
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class MainArray {
-    private static final Storage ARRAY_STORAGE = new MapStorage();
+    private static final Storage ARRAY_STORAGE = new MapResumeStorage();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -64,7 +62,7 @@ public class MainArray {
 
     private static void getAll() {
         if (ARRAY_STORAGE.size() != 0) {
-            System.out.println(Arrays.toString(ARRAY_STORAGE.getAll()));
+            System.out.println(ARRAY_STORAGE.getAllSorted());
         } else {
             System.out.println("Empty");
         }

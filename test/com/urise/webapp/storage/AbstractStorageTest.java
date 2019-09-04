@@ -6,20 +6,24 @@ import com.urise.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
     protected Storage storage;
     private static final String UUID_1 = "uuid1";
-    private static final Resume RESUME_1 = new Resume(UUID_1);
+    private static final String NAME_1 = "Vity Pupkin";
+    private static final Resume RESUME_1 = new Resume(UUID_1, NAME_1);
     private static final String UUID_2 = "uuid2";
-    private static final Resume RESUME_2 = new Resume(UUID_2);
+    private static final String NAME_2 = "Ivan Ivanod";
+    private static final Resume RESUME_2 = new Resume(UUID_2, NAME_2);
     private static final String UUID_3 = "uuid3";
-    private static final Resume RESUME_3 = new Resume(UUID_3);
+    private static final String NAME_3 = "Alex Lev";
+    private static final Resume RESUME_3 = new Resume(UUID_3, NAME_3);
     private static final String UUID_4 = "uuid4";
-    private static final Resume RESUME_4 = new Resume(UUID_4);
+    private static final String NAME_4 = "Masha Shashka";
+    private static final Resume RESUME_4 = new Resume(UUID_4, NAME_4);
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -47,7 +51,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() {
-        Resume resume = new Resume(UUID_1);
+        Resume resume = new Resume(UUID_1, NAME_1);
         storage.update(resume);
         assertSame(resume, storage.get(UUID_1));
     }
@@ -93,11 +97,11 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void getAll() {
+    public void getAllSorted() {
         Resume[] expected = {RESUME_1, RESUME_2, RESUME_3};
-        Resume[] array = storage.getAll();
-        Arrays.sort(array);
-        assertArrayEquals(expected, array);
+        List array = storage.getAllSorted();
+        array.sort(Comparator.comparing(Resume::getUuid));
+        assertEquals(Arrays.asList(expected), array);
     }
 
     private void assertGet(Resume resume) {
