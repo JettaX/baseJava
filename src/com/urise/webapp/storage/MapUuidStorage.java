@@ -31,7 +31,7 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object findIndex(String uuid) {
+    protected String findIndex(String uuid) {
         return uuid;
     }
 
@@ -46,7 +46,7 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> getAllSorted() {
+    public List<Resume> getAll() {
         return new ArrayList<>(storage.values());
     }
 

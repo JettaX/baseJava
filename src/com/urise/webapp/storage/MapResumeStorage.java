@@ -31,7 +31,7 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object findIndex(String uuid) {
+    protected Resume findIndex(String uuid) {
         return storage.get(uuid);
     }
 
@@ -46,12 +46,12 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> getAllSorted() {
+    public List<Resume> getAll() {
         return new ArrayList<>(storage.values());
     }
 
     @Override
     protected boolean isExist(Object index) {
-        return storage.containsValue(index);
+        return index != null;
     }
 }
