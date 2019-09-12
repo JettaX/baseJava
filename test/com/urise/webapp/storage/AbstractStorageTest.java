@@ -94,12 +94,12 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAllSorted() {
-        List actual = storage.getAllSorted();
-        List expected = new ArrayList();
+        List<Resume> actual = storage.getAllSorted();
+        List<Resume> expected = new ArrayList();
         expected.add(RESUME_1);
         expected.add(RESUME_2);
         expected.add(RESUME_3);
-        actual.sort(Comparator.comparing(Resume::getUuid));
+        expected.sort(Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid));
         assertEquals(expected, actual);
     }
 

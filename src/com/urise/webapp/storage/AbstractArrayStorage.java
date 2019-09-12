@@ -59,7 +59,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return (int) index > -1;
     }
 
-    protected abstract Integer findIndex(String uuid);
+    protected abstract Integer getSearchKey(String uuid);
 
     protected abstract void insertElement(Resume resume, int searchKey);
 
