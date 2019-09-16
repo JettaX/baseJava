@@ -13,23 +13,25 @@ public class MainArray {
         String init;
         Resume resume;
         String uuid;
+        String fullName;
 
         while (true) {
-            System.out.println("Enter one of the commands - | save | update | get | list | delete | clear | size | exit |");
+            System.out.println("Enter one of the commands - | save fullName | update uuid fullName | get | list | delete | clear | size | exit |");
             init = scanner.next().toLowerCase();
             switch (init) {
                 case "save":
-                    System.out.println("Enter uuid");
-                    uuid = scanner.next();
-                    resume = new Resume(uuid);
+                    System.out.println("Enter fullName");
+                    fullName = scanner.next();
+                    resume = new Resume(fullName);
                     ARRAY_STORAGE.save(resume);
                 case "list":
                     getAll();
                     break;
                 case "update":
-                    System.out.println("Enter new uuid");
+                    System.out.println("Enter new uuid and fullName");
                     uuid = scanner.next();
-                    resume = new Resume(uuid);
+                    fullName = scanner.next();
+                    resume = new Resume(uuid, fullName);
                     ARRAY_STORAGE.update(resume);
                     break;
                 case "get":
