@@ -20,7 +20,7 @@ public class ResumeTestData {
         System.out.println(resume.getContactsFields());
 
         SimpleTextSection objective = new SimpleTextSection();
-        objective.setField("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
+        objective.setText("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
         resume.setSectionsFields(SectionType.OBJECTIVE, objective);
 
         MarkedTextSection personal = new MarkedTextSection();

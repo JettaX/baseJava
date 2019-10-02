@@ -1,14 +1,16 @@
 package com.urise.webapp.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class OrganizationSection extends AbstractSection{
-    private java.util.List<Experience> list = new ArrayList<>();
+    private List<Experience> list = new ArrayList<>();
 
     public void add(Experience value) {
         list.add(value);
     }
 
+    @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for (Object aList : list) {

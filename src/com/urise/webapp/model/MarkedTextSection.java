@@ -1,14 +1,16 @@
 package com.urise.webapp.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MarkedTextSection extends AbstractSection {
-    private java.util.List<String> list = new ArrayList<>();
+    private List<String> list = new ArrayList<>();
 
     public void add(String value) {
         list.add(value);
     }
 
+    @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for (Object aList : list) {

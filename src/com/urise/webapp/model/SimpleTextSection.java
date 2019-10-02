@@ -1,20 +1,20 @@
 package com.urise.webapp.model;
 
 public class SimpleTextSection extends AbstractSection {
-        private java.lang.String field;
+    private String text;
 
-        public java.lang.String getField() {
-            return field;
-        }
+    public String getText() {
+        return text;
+    }
 
-        public void setField(java.lang.String field) {
-            this.field = field;
-        }
+    public void setText(String text) {
+        this.text = text;
+    }
 
-        @Override
-        public java.lang.String toString() {
-            return field;
-        }
+    @Override
+    public String toString() {
+        return text;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -23,11 +23,11 @@ public class SimpleTextSection extends AbstractSection {
 
         SimpleTextSection that = (SimpleTextSection) o;
 
-        return field.equals(that.field);
+        return text.equals(that.text);
     }
 
     @Override
     public int hashCode() {
-        return field.hashCode();
+        return text.hashCode();
     }
 }
