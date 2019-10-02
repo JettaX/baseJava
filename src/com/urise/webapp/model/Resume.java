@@ -10,7 +10,7 @@ public class Resume implements Comparable<Resume> {
     private String fullName;
 
     private final Map<ContactType, String> contactsFields = new EnumMap<>(ContactType.class);
-    private final Map<SectionType, Section> sectionsFields = new EnumMap<>(SectionType.class);
+    private final Map<SectionType, AbstractSection> sectionsFields = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -31,11 +31,11 @@ public class Resume implements Comparable<Resume> {
         return contactsFields;
     }
 
-    public void setSectionsFields(SectionType sectionType, Section text) {
+    public void setSectionsFields(SectionType sectionType, AbstractSection text) {
         sectionsFields.put(sectionType, text);
     }
 
-    public Map<SectionType, Section> getSectionsFields() {
+    public Map<SectionType, AbstractSection> getSectionsFields() {
         return sectionsFields;
     }
 
@@ -60,13 +60,17 @@ public class Resume implements Comparable<Resume> {
         Resume resume = (Resume) o;
 
         if (!uuid.equals(resume.uuid)) return false;
-        return fullName.equals(resume.fullName);
+        if (!fullName.equals(resume.fullName)) return false;
+        if (!contactsFields.equals(resume.contactsFields)) return false;
+        return sectionsFields.equals(resume.sectionsFields);
     }
 
     @Override
     public int hashCode() {
         int result = uuid.hashCode();
         result = 31 * result + fullName.hashCode();
+        result = 31 * result + contactsFields.hashCode();
+        result = 31 * result + sectionsFields.hashCode();
         return result;
     }
 
