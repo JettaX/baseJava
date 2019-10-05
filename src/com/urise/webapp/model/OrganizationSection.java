@@ -13,8 +13,8 @@ public class OrganizationSection extends AbstractSection{
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (Object aList : list) {
-            builder.append(aList);
+        for (Experience List : list) {
+            builder.append(List);
             builder.append("\n");
         }
         return builder.toString();

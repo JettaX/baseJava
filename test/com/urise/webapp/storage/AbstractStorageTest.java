@@ -13,13 +13,13 @@ import static org.junit.Assert.*;
 public abstract class AbstractStorageTest {
     protected Storage storage;
     private static final String UUID_1 = "uuid1";
-    private static final Resume RESUME_1 = new Resume(UUID_1, "Vity Pupkin");
+    private static final Resume RESUME_1 = new Resume(UUID_1, "Name1");
     private static final String UUID_2 = "uuid2";
-    private static final Resume RESUME_2 = new Resume(UUID_2, "Ivan Ivanod");
+    private static final Resume RESUME_2 = new Resume(UUID_2, "Name2");
     private static final String UUID_3 = "uuid3";
-    private static final Resume RESUME_3 = new Resume(UUID_3, "Alex Lev");
+    private static final Resume RESUME_3 = new Resume(UUID_3, "Name3");
     private static final String UUID_4 = "uuid4";
-    private static final Resume RESUME_4 = new Resume(UUID_4, "Masha Shashka");
+    private static final Resume RESUME_4 = new Resume(UUID_4, "Name4");
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -47,7 +47,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() {
-        Resume resume = new Resume(UUID_1, "Vity Pupkin");
+        Resume resume = new Resume(UUID_1, "new Name");
         storage.update(resume);
         assertSame(resume, storage.get(UUID_1));
     }
@@ -66,7 +66,7 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void deleteNotExist() {
-        storage.delete("day");
+        storage.delete("dummy");
     }
 
     @Test
@@ -89,14 +89,16 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() {
-        storage.get("day");
+        storage.get("dummy");
     }
 
     @Test
     public void getAllSorted() {
-        List<Resume> list = storage.getAllSorted();
-        assertEquals(3, list.size());
-        assertEquals(list, Arrays.asList(RESUME_3, RESUME_2, RESUME_1));
+        List<Resume> expected = storage.getAllSorted();
+        assertEquals(3, expected.size());
+        List<Resume> actual = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
+        Collections.sort(actual);
+        assertEquals(expected, actual);
     }
 
     private void assertGet(Resume resume) {

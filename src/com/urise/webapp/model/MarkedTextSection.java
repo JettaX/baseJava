@@ -13,8 +13,8 @@ public class MarkedTextSection extends AbstractSection {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (Object aList : list) {
-            builder.append(aList);
+        for (String List : list) {
+            builder.append(List);
             builder.append("\n");
         }
         return builder.toString();
