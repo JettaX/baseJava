@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrganizationSection extends AbstractSection{
-    private List<Experience> list = new ArrayList<>();
+    private List<Experience> items = new ArrayList<>();
 
     public void add(Experience value) {
-        list.add(value);
+        items.add(value);
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (Experience List : list) {
-            builder.append(List);
+        for (Experience text : items) {
+            builder.append(text);
             builder.append("\n");
         }
         return builder.toString();
@@ -27,11 +27,11 @@ public class OrganizationSection extends AbstractSection{
 
         OrganizationSection that = (OrganizationSection) o;
 
-        return list.equals(that.list);
+        return items.equals(that.items);
     }
 
     @Override
     public int hashCode() {
-        return list.hashCode();
+        return items.hashCode();
     }
 }

@@ -1,16 +1,21 @@
 package com.urise.webapp.model;
 
 import java.time.YearMonth;
+import java.util.Objects;
 
 public class Experience {
-    private String organization;
+    private Link organization;
     private YearMonth dateFrom;
     private YearMonth dateTo;
     private String position;
     private String duties;
 
-    public Experience(String organization, YearMonth dateFrom, YearMonth dateTo, String position, String duties) {
-        this.organization = organization;
+    public Experience(String nameOrganization, String urlOrganization, YearMonth dateFrom, YearMonth dateTo, String position, String duties) {
+        Objects.requireNonNull(dateFrom, "dateFrom must not be null");
+        Objects.requireNonNull(position, "position must not be null");
+        if (nameOrganization != null) {
+            this.organization = new Link(nameOrganization, urlOrganization);
+        }
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
         this.position = position;
@@ -19,10 +24,10 @@ public class Experience {
 
     @Override
     public String toString() {
-        return '\n' + organization + '\n' +
+        return  (organization == null ? "" : ('\n' + organization.toString()) + '\n') +
                 dateFrom + "          " +
-                position + '\n' +
-                dateTo + "          " +
+                position +
+                (dateTo == null ? "" : ('\n' + "" + dateTo + "          "))  +
                 (duties == null ? "" : (duties)) + '\n';
     }
 
@@ -33,7 +38,7 @@ public class Experience {
 
         Experience that = (Experience) o;
 
-        if (!organization.equals(that.organization)) return false;
+        if (organization != null ? !organization.equals(that.organization) : that.organization != null) return false;
         if (!dateFrom.equals(that.dateFrom)) return false;
         if (!dateTo.equals(that.dateTo)) return false;
         if (!position.equals(that.position)) return false;
@@ -42,7 +47,7 @@ public class Experience {
 
     @Override
     public int hashCode() {
-        int result = organization.hashCode();
+        int result = organization != null ? organization.hashCode() : 0;
         result = 31 * result + dateFrom.hashCode();
         result = 31 * result + dateTo.hashCode();
         result = 31 * result + position.hashCode();

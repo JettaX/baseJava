@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MarkedTextSection extends AbstractSection {
-    private List<String> list = new ArrayList<>();
+    private List<String> items = new ArrayList<>();
 
     public void add(String value) {
-        list.add(value);
+        items.add(value);
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (String List : list) {
-            builder.append(List);
+        for (String text : items) {
+            builder.append(text);
             builder.append("\n");
         }
         return builder.toString();
@@ -27,11 +27,11 @@ public class MarkedTextSection extends AbstractSection {
 
         MarkedTextSection that = (MarkedTextSection) o;
 
-        return list.equals(that.list);
+        return items.equals(that.items);
     }
 
     @Override
     public int hashCode() {
-        return list.hashCode();
+        return items.hashCode();
     }
 }

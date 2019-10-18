@@ -1,19 +1,19 @@
 package com.urise.webapp.model;
 
 public class SimpleTextSection extends AbstractSection {
-    private String text;
+    private String content;
 
-    public String getText() {
-        return text;
+    public String getContent() {
+        return content;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @Override
     public String toString() {
-        return text;
+        return content;
     }
 
     @Override
@@ -23,11 +23,11 @@ public class SimpleTextSection extends AbstractSection {
 
         SimpleTextSection that = (SimpleTextSection) o;
 
-        return text.equals(that.text);
+        return content.equals(that.content);
     }
 
     @Override
     public int hashCode() {
-        return text.hashCode();
+        return content.hashCode();
     }
 }

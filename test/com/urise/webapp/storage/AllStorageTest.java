@@ -12,5 +12,5 @@ import org.junit.runners.Suite;
         SortedArrayStorageTest.class
 })
 
-public class RunAllStorageTest {
+public class AllStorageTest {
 }

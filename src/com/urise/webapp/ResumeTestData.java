@@ -20,7 +20,7 @@ public class ResumeTestData {
         System.out.println(resume.getContactsFields());
 
         SimpleTextSection objective = new SimpleTextSection();
-        objective.setText("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
+        objective.setContent("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
         resume.setSectionsFields(SectionType.OBJECTIVE, objective);
 
         MarkedTextSection personal = new MarkedTextSection();
@@ -67,11 +67,11 @@ public class ResumeTestData {
         resume.setSectionsFields(SectionType.QUALIFICATION, qualification);
 
         OrganizationSection experience = new OrganizationSection();
-        experience.add(new Experience("Wrike", YearMonth.of(2014, 10), YearMonth.of(2016, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
+        experience.add(new Experience("Wrike", "https://www.wrike.com/",  YearMonth.of(2014, 10), YearMonth.of(2016, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."));
         resume.setSectionsFields(SectionType.EXPERIENCE, experience);
 
         OrganizationSection education = new OrganizationSection();
-        education.add(new Experience("Coursera", YearMonth.of(2013, 3), YearMonth.of(2013, 5), "\"Functional Programming Principles in Scala\" by Martin Odersky", null));
+        education.add(new Experience("Coursera", "https://www.coursera.org/course/progfun", YearMonth.of(2013, 3), YearMonth.of(2013, 5), "\"Functional Programming Principles in Scala\" by Martin Odersky", null));
         resume.setSectionsFields(SectionType.EDUCATION, education);
 
         System.out.println(resume.getSectionsFields());
