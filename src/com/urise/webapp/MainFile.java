@@ -34,10 +34,12 @@ public class MainFile {
 
     public static void directoryPrint(File directory) {
         File[] files = directory.listFiles();
-        for (File file : files) {
-            System.out.println(file.getAbsolutePath());
-            if (file.isDirectory()) {
-                directoryPrint(file);
+        if (files != null) {
+            for (File file : files) {
+                System.out.println(file.getAbsolutePath());
+                if (file.isDirectory()) {
+                    directoryPrint(file);
+                }
             }
         }
     }

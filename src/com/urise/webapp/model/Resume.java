@@ -23,20 +23,20 @@ public class Resume implements Comparable<Resume> {
         this.fullName = fullName;
     }
 
-    public void setContactsFields(ContactType contactType, String text) {
-        contactsFields.put(contactType, text);
+    public String getContact(ContactType type) {
+        return contactsFields.get(type);
     }
 
-    public Map<ContactType, String> getContactsFields() {
-        return contactsFields;
+    public AbstractSection getSection(SectionType type) {
+        return sectionsFields.get(type);
     }
 
-    public void setSectionsFields(SectionType sectionType, AbstractSection text) {
-        sectionsFields.put(sectionType, text);
+    public void addContact(ContactType type, String value) {
+        contactsFields.put(type, value);
     }
 
-    public Map<SectionType, AbstractSection> getSectionsFields() {
-        return sectionsFields;
+    public void addSection(SectionType type, AbstractSection section) {
+        sectionsFields.put(type, section);
     }
 
     public String getUuid() {

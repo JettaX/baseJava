@@ -1,19 +1,30 @@
 package com.urise.webapp.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class OrganizationSection extends AbstractSection{
-    private List<Experience> items = new ArrayList<>();
+    private List<Experience> organizations = new ArrayList<>();
 
-    public void add(Experience value) {
-        items.add(value);
+    public OrganizationSection(Experience... organizations) {
+        this(Arrays.asList(organizations));
+    }
+
+    public OrganizationSection(List<Experience> organizations) {
+        Objects.requireNonNull(organizations, "organizations must not be null");
+        this.organizations = organizations;
+    }
+
+    public List<Experience> getOrganizations() {
+        return organizations;
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (Experience text : items) {
+        for (Experience text : organizations) {
             builder.append(text);
             builder.append("\n");
         }
@@ -27,11 +38,11 @@ public class OrganizationSection extends AbstractSection{
 
         OrganizationSection that = (OrganizationSection) o;
 
-        return items.equals(that.items);
+        return organizations.equals(that.organizations);
     }
 
     @Override
     public int hashCode() {
-        return items.hashCode();
+        return organizations.hashCode();
     }
 }

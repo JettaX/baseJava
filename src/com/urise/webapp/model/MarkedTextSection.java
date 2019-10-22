@@ -1,19 +1,30 @@
 package com.urise.webapp.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class MarkedTextSection extends AbstractSection {
-    private List<String> items = new ArrayList<>();
+    private List<String> organizations = new ArrayList<>();
 
-    public void add(String value) {
-        items.add(value);
+    public MarkedTextSection(String... organizations) {
+        this(Arrays.asList(organizations));
+    }
+
+    public MarkedTextSection(List<String> organizations) {
+        Objects.requireNonNull(organizations, "organizations must not be null");
+        this.organizations = organizations;
+    }
+
+    public List<String> getOrganizations() {
+        return organizations;
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (String text : items) {
+        for (String text : organizations) {
             builder.append(text);
             builder.append("\n");
         }
@@ -27,11 +38,11 @@ public class MarkedTextSection extends AbstractSection {
 
         MarkedTextSection that = (MarkedTextSection) o;
 
-        return items.equals(that.items);
+        return organizations.equals(that.organizations);
     }
 
     @Override
     public int hashCode() {
-        return items.hashCode();
+        return organizations.hashCode();
     }
 }

@@ -3,11 +3,7 @@ package com.urise.webapp.model;
 public class SimpleTextSection extends AbstractSection {
     private String content;
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
+    public SimpleTextSection(String content) {
         this.content = content;
     }
 
