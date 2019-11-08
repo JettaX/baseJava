@@ -1,11 +1,12 @@
 package com.urise.webapp.model;
 
+import java.io.Serializable;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Experience {
+public class Experience implements Serializable {
     private Link organization;
     private List<Position> positions = new ArrayList<>();
 
@@ -44,7 +45,9 @@ public class Experience {
                 '}';
     }
 
-    public static class Position {
+    public static class Position implements Serializable{
+        private static final long serialVersionUID = 1L;
+
         private  YearMonth dateFrom;
         private YearMonth dateTo;
         private String position;
@@ -75,7 +78,7 @@ public class Experience {
             if (!dateFrom.equals(position1.dateFrom)) return false;
             if (!dateTo.equals(position1.dateTo)) return false;
             if (!position.equals(position1.position)) return false;
-            return duties.equals(position1.duties);
+            return duties != null ? duties.equals(position1.duties) : position1.duties == null;
         }
 
         @Override
@@ -83,7 +86,7 @@ public class Experience {
             int result = dateFrom.hashCode();
             result = 31 * result + dateTo.hashCode();
             result = 31 * result + position.hashCode();
-            result = 31 * result + duties.hashCode();
+            result = 31 * result + (duties != null ? duties.hashCode() : 0);
             return result;
         }
 

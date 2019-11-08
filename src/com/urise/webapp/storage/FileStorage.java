@@ -3,57 +3,61 @@ package com.urise.webapp.storage;
 import com.urise.webapp.exeption.StorageException;
 import com.urise.webapp.model.Resume;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class AbstractFileStorage extends AbstractStorage<File> {
+public class FileStorage extends AbstractStorage<File> {
     private File directory;
+    private ObjectStream objectStream;
 
-    protected abstract void doWrite(Resume resume, File file) throws IOException;
-
-    protected abstract Resume doRead(File file) throws IOException;
-
-    protected AbstractFileStorage(File directory) {
+    protected FileStorage(String directory, ObjectStream objectStream) {
+        File file = new File(directory);
         Objects.requireNonNull(directory, "directory must not be null");
-        if (!directory.isDirectory()) {
-            throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
+        if (!file.isDirectory()) {
+            throw new IllegalArgumentException(file.getAbsolutePath() + " is not directory");
         }
-        if (!directory.canRead() || !directory.canWrite()) {
-            throw new IllegalArgumentException(directory.getAbsolutePath() + "is not readable/writable");
+        if (!file.canRead() || !file.canWrite()) {
+            throw new IllegalArgumentException(file.getAbsolutePath() + "is not readable/writable");
         }
-        this.directory = directory;
+        this.objectStream = objectStream;
+        this.directory = file;
     }
 
     @Override
     protected void doSave(Resume resume, File file) {
         try {
             file.createNewFile();
-            doWrite(resume, file);
         } catch (IOException e) {
-            throw new StorageException("IO error", file.getName(), e);
+            throw new StorageException("Couldn't create file " + file.getAbsolutePath(), file.getName(), e);
         }
+        doUpdate(resume, file);
     }
 
     @Override
     protected void doUpdate(Resume resume, File file) {
-        doSave(resume, file);
+        try {
+            objectStream.doWrite(resume, new BufferedOutputStream(new FileOutputStream(file)));
+        } catch (IOException e) {
+            throw new StorageException("File write error", resume.getUuid(), e);
+        }
     }
 
     @Override
     protected Resume doGet(File file) {
         try {
-            return doRead(file);
+            return objectStream.doRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
-            throw new StorageException("IO error", file.getName(), e);
+            throw new StorageException("File read error", file.getName(), e);
         }
     }
 
     @Override
     protected void doDelete(File file) {
-        file.delete();
+        if (!file.delete()) {
+            throw new StorageException("File delete error", file.getName());
+        }
     }
 
     @Override
