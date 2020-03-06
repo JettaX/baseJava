@@ -1,11 +1,17 @@
 package com.urise.webapp.model;
 
+import com.urise.webapp.util.YearMonthAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Experience implements Serializable {
     private Link organization;
     private List<Position> positions = new ArrayList<>();
@@ -17,6 +23,17 @@ public class Experience implements Serializable {
     public Experience(Link organization, List<Position> positions) {
         this.organization = organization;
         this.positions = positions;
+    }
+
+    public Experience() {
+    }
+
+    public Link getOrganization() {
+        return organization;
+    }
+
+    public List<Position> getPositions() {
+        return positions;
     }
 
     @Override
@@ -45,10 +62,13 @@ public class Experience implements Serializable {
                 '}';
     }
 
+    @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable{
         private static final long serialVersionUID = 1L;
 
+        @XmlJavaTypeAdapter(YearMonthAdapter.class)
         private  YearMonth dateFrom;
+        @XmlJavaTypeAdapter(YearMonthAdapter.class)
         private YearMonth dateTo;
         private String position;
         private String duties;
@@ -65,7 +85,26 @@ public class Experience implements Serializable {
             this.dateFrom = dateFrom;
             this.dateTo = dateTo;
             this.position = position;
-            this.duties = duties;
+            this.duties = duties == null ? "" : duties;
+        }
+
+        public Position() {
+        }
+
+        public YearMonth getDateFrom() {
+            return dateFrom;
+        }
+
+        public YearMonth getDateTo() {
+            return dateTo;
+        }
+
+        public String getPosition() {
+            return position;
+        }
+
+        public String getDuties() {
+            return duties;
         }
 
         @Override

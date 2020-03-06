@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class MarkedTextSection extends AbstractSection {
+public class MarkedTextSection extends Section {
     private static final long serialVersionUID = 1L;
 
     private List<String> organizations = new ArrayList<>();
@@ -17,6 +17,9 @@ public class MarkedTextSection extends AbstractSection {
     public MarkedTextSection(List<String> organizations) {
         Objects.requireNonNull(organizations, "organizations must not be null");
         this.organizations = organizations;
+    }
+
+    public MarkedTextSection() {
     }
 
     public List<String> getOrganizations() {
@@ -37,14 +40,12 @@ public class MarkedTextSection extends AbstractSection {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         MarkedTextSection that = (MarkedTextSection) o;
-
         return organizations.equals(that.organizations);
     }
 
     @Override
     public int hashCode() {
-        return organizations.hashCode();
+        return Objects.hash(organizations);
     }
 }
