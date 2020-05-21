@@ -13,23 +13,26 @@ import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Experience implements Serializable {
-    private Link organization;
+    private static final long serialVersionUID = 1L;
+    private Link homePage;
     private List<Position> positions = new ArrayList<>();
+
+    public static final Experience EMPTY = new Experience("", "", Position.EMPTY);
 
     public Experience(String name, String url, Position... positions) {
         this(new Link(name, url), Arrays.asList(positions));
     }
 
-    public Experience(Link organization, List<Position> positions) {
-        this.organization = organization;
+    public Experience(Link homePage, List<Position> positions) {
+        this.homePage = homePage;
         this.positions = positions;
     }
 
     public Experience() {
     }
 
-    public Link getOrganization() {
-        return organization;
+    public Link getHomePage() {
+        return homePage;
     }
 
     public List<Position> getPositions() {
@@ -43,13 +46,13 @@ public class Experience implements Serializable {
 
         Experience that = (Experience) o;
 
-        if (!organization.equals(that.organization)) return false;
+        if (!homePage.equals(that.homePage)) return false;
         return positions.equals(that.positions);
     }
 
     @Override
     public int hashCode() {
-        int result = organization.hashCode();
+        int result = homePage.hashCode();
         result = 31 * result + positions.hashCode();
         return result;
     }
@@ -57,7 +60,7 @@ public class Experience implements Serializable {
     @Override
     public String toString() {
         return "Experience{" +
-                "organization=" + organization +
+                "organization=" + homePage +
                 ", positions=" + positions +
                 '}';
     }
@@ -65,27 +68,28 @@ public class Experience implements Serializable {
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable{
         private static final long serialVersionUID = 1L;
+        public static final Position EMPTY = new Position();
 
         @XmlJavaTypeAdapter(YearMonthAdapter.class)
         private  YearMonth dateFrom;
         @XmlJavaTypeAdapter(YearMonthAdapter.class)
         private YearMonth dateTo;
-        private String position;
-        private String duties;
+        private String title;
+        private String description;
 
-        public Position(int startYear, int startMonth, String position, String duties) {
-            this(YearMonth.of(startYear, startMonth), YearMonth.now(), position, duties);
+        public Position(int startYear, int startMonth, String title, String description) {
+            this(YearMonth.of(startYear, startMonth), YearMonth.now(), title, description);
         }
 
-        public Position(int startYear, int startMonth, int endYear, int endMonth, String position, String duties) {
-            this(YearMonth.of(startYear, startMonth), YearMonth.of(endYear, endMonth), position, duties);
+        public Position(int startYear, int startMonth, int endYear, int endMonth, String title, String description) {
+            this(YearMonth.of(startYear, startMonth), YearMonth.of(endYear, endMonth), title, description);
         }
 
-        public Position(YearMonth dateFrom, YearMonth dateTo, String position, String duties) {
+        public Position(YearMonth dateFrom, YearMonth dateTo, String title, String description) {
             this.dateFrom = dateFrom;
             this.dateTo = dateTo;
-            this.position = position;
-            this.duties = duties == null ? "" : duties;
+            this.title = title;
+            this.description = description == null ? "" : description;
         }
 
         public Position() {
@@ -99,12 +103,12 @@ public class Experience implements Serializable {
             return dateTo;
         }
 
-        public String getPosition() {
-            return position;
+        public String getTitle() {
+            return title;
         }
 
-        public String getDuties() {
-            return duties;
+        public String getDescription() {
+            return description;
         }
 
         @Override
@@ -116,16 +120,16 @@ public class Experience implements Serializable {
 
             if (!dateFrom.equals(position1.dateFrom)) return false;
             if (!dateTo.equals(position1.dateTo)) return false;
-            if (!position.equals(position1.position)) return false;
-            return duties != null ? duties.equals(position1.duties) : position1.duties == null;
+            if (!title.equals(position1.title)) return false;
+            return description != null ? description.equals(position1.description) : position1.description == null;
         }
 
         @Override
         public int hashCode() {
             int result = dateFrom.hashCode();
             result = 31 * result + dateTo.hashCode();
-            result = 31 * result + position.hashCode();
-            result = 31 * result + (duties != null ? duties.hashCode() : 0);
+            result = 31 * result + title.hashCode();
+            result = 31 * result + (description != null ? description.hashCode() : 0);
             return result;
         }
 
@@ -134,8 +138,8 @@ public class Experience implements Serializable {
             return "Position{" +
                     "dateFrom=" + dateFrom +
                     ", dateTo=" + dateTo +
-                    ", position='" + position + '\'' +
-                    ", duties='" + duties + '\'' +
+                    ", position='" + title + '\'' +
+                    ", duties='" + description + '\'' +
                     '}';
         }
     }

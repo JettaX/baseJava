@@ -13,6 +13,16 @@ import java.util.UUID;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Resume implements Comparable<Resume>, Serializable {
     private static final long serialVersionUID = 1L;
+    public static final Resume EMPTY = new Resume();
+
+    static {
+        EMPTY.addSection(SectionType.OBJECTIVE, SimpleTextSection.EMPTY);
+        EMPTY.addSection(SectionType.PERSONAL, SimpleTextSection.EMPTY);
+        EMPTY.addSection(SectionType.ACHIEVEMENT, MarkedTextSection.EMPTY);
+        EMPTY.addSection(SectionType.QUALIFICATION, MarkedTextSection.EMPTY);
+        EMPTY.addSection(SectionType.EXPERIENCE, new OrganizationSection(Experience.EMPTY));
+        EMPTY.addSection(SectionType.EDUCATION, new OrganizationSection(Experience.EMPTY));
+    }
 
     private String uuid;
     private String fullName;
@@ -56,6 +66,14 @@ public class Resume implements Comparable<Resume>, Serializable {
 
     public Section getSection(SectionType type) {
         return sectionsFields.get(type);
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public void addContact(ContactType type, String value) {

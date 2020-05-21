@@ -11,8 +11,8 @@ public class ResumeTestData {
         resume.addContact(ContactType.MAIL, "gkislin@yandex.ru");
         resume.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
         resume.addContact(ContactType.GITHUB, "https://github.com/gkislin");
-        resume.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
-        resume.addContact(ContactType.HOMEPAGE, "http://gkislin.ru/");
+        resume.addContact(ContactType.STATCKOVERFLOW, "https://stackoverflow.com/users/548473");
+        resume.addContact(ContactType.HOME_PAGE, "http://gkislin.ru/");
 
         SimpleTextSection objective = new SimpleTextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
         resume.addSection(SectionType.OBJECTIVE, objective);

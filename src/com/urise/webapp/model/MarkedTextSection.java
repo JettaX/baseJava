@@ -7,6 +7,7 @@ import java.util.Objects;
 
 public class MarkedTextSection extends Section {
     private static final long serialVersionUID = 1L;
+    public static final MarkedTextSection EMPTY = new MarkedTextSection("");
 
     private List<String> organizations = new ArrayList<>();
 
